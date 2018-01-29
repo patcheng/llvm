@@ -699,6 +699,7 @@ namespace llvm {
 extern MCAsmParserExtension *createDarwinAsmParser();
 extern MCAsmParserExtension *createELFAsmParser();
 extern MCAsmParserExtension *createCOFFAsmParser();
+extern MCAsmParserExtension *createWASMAsmParser();
 
 } // end namespace llvm
 
@@ -729,7 +730,7 @@ AsmParser::AsmParser(SourceMgr &SM, MCContext &Ctx, MCStreamer &Out,
     PlatformParser.reset(createELFAsmParser());
     break;
   case MCObjectFileInfo::IsWasm:
-    llvm_unreachable("Wasm parsing not supported yet");
+    PlatformParser.reset(createWASMAsmParser());
     break;
   }
 
