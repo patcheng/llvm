@@ -203,6 +203,8 @@ public:
   SubtargetFeatures getFeatures() const override;
   bool isRelocatableObject() const override;
 
+  bool isSectionWasmDataSegment(const SectionRef &Section) const;
+
 private:
   bool isValidFunctionIndex(uint32_t Index) const;
   bool isDefinedFunctionIndex(uint32_t Index) const;
@@ -210,6 +212,10 @@ private:
 
   const WasmSection &getWasmSection(DataRefImpl Ref) const;
   const wasm::WasmRelocation &getWasmRelocation(DataRefImpl Ref) const;
+
+  bool isSectionWasmDataSegment(DataRefImpl Sec) const;
+
+  const wasm::WasmDataSegment &getSectionWasmDataSegment(DataRefImpl Ref) const;
 
   WasmSection* findCustomSectionByName(StringRef Name);
   WasmSection* findSectionByType(uint32_t Type);
